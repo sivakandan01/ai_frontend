@@ -1,0 +1,113 @@
+/* Custom Code Syntax Highlighting */
+
+/* Code block background - EVERYTHING WHITE BY DEFAULT */
+.hljs {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* FORCE: Make ALL elements white by default - very aggressive */
+.hljs *,
+.hljs span,
+.hljs span[class*="hljs"] {
+  color: #ffffff !important;
+}
+
+/* NOW override ONLY the specific things we want colored */
+
+/* Keywords (if, for, def, SELECT, WHERE, etc.) - BLUE */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link,
+span.hljs-keyword {
+  color: #60a5fa !important; /* BLUE for keywords */
+}
+
+/* Strings ("text", 'text') - WHITE (already white) */
+.hljs-string,
+.hljs-regexp,
+.hljs-meta-string,
+span.hljs-string {
+  color: #ffffff !important; /* WHITE for strings */
+}
+
+/* Built-in Functions (print, enumerate, range) - YELLOW */
+.hljs-built_in,
+.hljs-built-in,
+span.hljs-built_in,
+span.hljs-built-in {
+  color: #facc15 !important; /* YELLOW for built-in functions */
+}
+
+/* User-defined Functions - YELLOW */
+.hljs-title.function_,
+.hljs-function .hljs-title,
+span.hljs-title {
+  color: #facc15 !important; /* YELLOW for function names */
+}
+
+/* Variables, Parameters - FORCE WHITE */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params,
+.hljs-name,
+.hljs-attr,
+.hljs-property,
+span.hljs-variable,
+span.hljs-name,
+span.hljs-attr,
+span.hljs-property,
+span.hljs-params {
+  color: #ffffff !important; /* WHITE */
+}
+
+/* Numbers - PINK */
+.hljs-number,
+span.hljs-number {
+  color: #ec4899 !important; /* PINK for numbers */
+}
+
+/* Comments - GRAY */
+.hljs-comment,
+.hljs-quote,
+span.hljs-comment {
+  color: #6b7280 !important; /* Gray */
+  font-style: italic;
+}
+
+/* Operators and Punctuation - FORCE WHITE */
+.hljs-operator,
+.hljs-punctuation,
+span.hljs-operator,
+span.hljs-punctuation {
+  color: #ffffff !important; /* WHITE for operators */
+}
+
+/* Types, Classes - YELLOW */
+.hljs-type,
+.hljs-class,
+span.hljs-type,
+span.hljs-class {
+  color: #facc15 !important; /* Yellow */
+}
+
+/* Tags (HTML/XML) - RED */
+.hljs-tag,
+span.hljs-tag {
+  color: #ef4444 !important; /* Red */
+}
+
+/* Special - Meta, Preprocessor - PURPLE */
+.hljs-meta,
+.hljs-meta-keyword,
+span.hljs-meta {
+  color: #8b5cf6 !important; /* Purple */
+}
+
+/* Deletions (git diff) - RED */
+.hljs-deletion,
+span.hljs-deletion {
+  color: #ef4444 !important; /* Red */
+}

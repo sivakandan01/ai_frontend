@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  /* Enable dark mode with class strategy */
+  --dark-mode: class;
+}
+
+@layer base {
+  /* ChatGPT-Inspired Theme System */
+  :root {
+    /* Light Mode - ChatGPT Style */
+    --sidebar-bg: 247 247 248;
+    --main-surface: 255 255 255;
+    --input-bg: 255 255 255;
+    --primary-text: 16 16 16;
+    --secondary-text: 142 142 160;
+    --border-color: 217 217 227;
+    --hover-bg: 247 247 248;
+    --button-primary: 16 185 129;
+    --button-hover: 5 150 105;
+    --button-secondary: 229 231 235;
+    --button-secondary-hover: 209 213 219;
+    --icon-color: 142 142 160;
+    --error-color: 239 68 68;
+  }
+
+  .dark {
+    /* Dark Mode - ChatGPT Style */
+    --sidebar-bg: 32 33 35;
+    --main-surface: 52 53 65;
+    --input-bg: 64 65 79;
+    --primary-text: 217 217 227;
+    --secondary-text: 142 142 160;
+    --border-color: 86 88 105;
+    --hover-bg: 64 65 79;
+    --button-primary: 16 185 129;
+    --button-hover: 5 150 105;
+    --button-secondary: 52 53 65;
+    --button-secondary-hover: 64 65 79;
+    --icon-color: 172 172 190;
+    --error-color: 248 113 113;
+  }
+
+  body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  .distance-marker-invisible {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Shimmer animation for button */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

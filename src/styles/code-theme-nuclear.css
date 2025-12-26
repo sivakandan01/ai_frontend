@@ -1,0 +1,30 @@
+/* NUCLEAR OPTION: Force EVERYTHING to white, then only color specific things */
+
+/* Default: Everything white */
+.hljs,
+.hljs *:not(.hljs-keyword):not(.hljs-built_in):not(.hljs-number) {
+  color: #ffffff !important;
+}
+
+/* Keywords ONLY - BLUE */
+.hljs-keyword {
+  color: #60a5fa !important;
+}
+
+/* Built-in functions ONLY - YELLOW */
+.hljs-built_in,
+.hljs-built-in {
+  color: #facc15 !important;
+}
+
+/* Numbers ONLY - PINK */
+.hljs-number {
+  color: #ec4899 !important;
+}
+
+/* Comments - GRAY */
+.hljs-comment,
+.hljs-quote {
+  color: #6b7280 !important;
+  font-style: italic;
+}
