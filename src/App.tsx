@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { store, persistor } from './store';
 import { ThemeProvider } from './contexts/ThemeContext';
 import LandingPage from "./pages/landing";

@@ -6,7 +6,7 @@ import { setUser } from "@/store/slices/userSlice";
 import { ThemeToggle } from "@/components/common";
 
 export default function RegisterContainer() {
-  const [name, setName] = useState("");
+  const [user_name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,14 +26,12 @@ export default function RegisterContainer() {
     }
 
     try {
-      const response = await register({ email, password, name }).unwrap();
+      const response = await register({ email, password, user_name }).unwrap();
 
-      // Store access token
       if (response.access_token) {
         localStorage.setItem('access_token', response.access_token);
       }
 
-      // Store user data in Redux
       if (response.user) {
         dispatch(setUser({
           email: response.user.email,
@@ -76,7 +74,7 @@ export default function RegisterContainer() {
             <input
               id="name"
               type="text"
-              value={name}
+              value={user_name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
               className="w-full px-4 py-3 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"

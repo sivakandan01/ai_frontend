@@ -21,12 +21,10 @@ export default function LoginContainer() {
     try {
       const response = await login({ email, password }).unwrap();
 
-      // Store access token
       if (response.access_token) {
         localStorage.setItem('access_token', response.access_token);
       }
 
-      // Store user data in Redux
       if (response.user) {
         dispatch(setUser({
           email: response.user.email,
