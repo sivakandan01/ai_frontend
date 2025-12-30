@@ -1,44 +1,38 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ThemeToggle } from "@/components/common";
 
 interface ImageHeaderProps {
   currentSessionName?: string;
-  imageProvider: string;
-  onProviderChange: (value: string) => void;
+  onMenuClick?: () => void;
 }
 
 export default function ImageHeader({
   currentSessionName,
-  imageProvider,
-  onProviderChange,
+  onMenuClick,
 }: ImageHeaderProps) {
   return (
-    <div className="flex items-center justify-between px-6 py-4 bg-[rgb(var(--sidebar-bg))]">
-      <div>
-        <h2 className="text-xl font-semibold text-[rgb(var(--primary-text))]">
-          {currentSessionName || "New Image Generation"}
-        </h2>
-        <span className="text-sm text-[rgb(var(--secondary-text))]">Image Generation</span>
+    <div className="flex items-center justify-between px-3 md:px-6 py-3 md:py-4 bg-[rgb(var(--sidebar-bg))] border-b border-[rgb(var(--border-color))]">
+      <div className="flex items-center gap-2 md:gap-0 flex-1 min-w-0">
+        {/* Hamburger Menu Button - Mobile Only */}
+        <button
+          onClick={onMenuClick}
+          className="md:hidden p-2 hover:bg-[rgb(var(--input-bg))] rounded-lg transition-colors flex-shrink-0"
+          aria-label="Toggle menu"
+        >
+          <svg className="w-6 h-6 text-[rgb(var(--primary-text))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <div className="min-w-0 flex-1">
+          <h2 className="text-base md:text-xl font-semibold text-[rgb(var(--primary-text))] truncate">
+            {currentSessionName || "New Image Generation"}
+          </h2>
+          <span className="text-xs md:text-sm text-[rgb(var(--secondary-text))]">Image Generation</span>
+        </div>
       </div>
 
-      {/* Provider Selector and Theme Toggle */}
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-[rgb(var(--secondary-text))]">Provider:</span>
-        <Select value={imageProvider} onValueChange={onProviderChange}>
-          <SelectTrigger className="w-[180px] bg-[rgb(var(--input-bg))] border-[rgb(var(--border-color))] text-[rgb(var(--primary-text))]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="pollinations">Pollinations</SelectItem>
-            <SelectItem value="huggingface">Hugging Face</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* Theme Toggle */}
+      <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
         <ThemeToggle />
       </div>
     </div>

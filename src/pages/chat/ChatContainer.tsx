@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Sidebar } from "@/components/layout";
 import { ChatArea } from "@/components/chat";
 import ChatHeader from "./components/ChatHeader";
@@ -20,6 +21,8 @@ export default function ChatContainer() {
     handleSubmit,
   } = useChatLogic();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="flex flex-row bg-[rgb(var(--sidebar-bg))] h-screen overflow-hidden">
       <Sidebar
@@ -30,9 +33,15 @@ export default function ChatContainer() {
         onSessionClick={handleSessionClick}
         onRenameSession={handleRenameSession}
         onDeleteSession={handleDeleteSession}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
       <div className="flex-1 flex flex-col overflow-hidden bg-[rgb(var(--main-surface))]">
-        <ChatHeader mode={mode} sessionName={currentSessionName} />
+        <ChatHeader
+          mode={mode}
+          sessionName={currentSessionName}
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        />
         <ChatArea
           mode={mode}
           messages={messages}

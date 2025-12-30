@@ -32,6 +32,9 @@ export default function MermaidContainer() {
     handleDownload,
   } = useMermaidLogic();
 
+  // Mobile sidebar state
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   // Resizable split pane state
   const [leftWidth, setLeftWidth] = useState(50); // percentage
   const [isDragging, setIsDragging] = useState(false);
@@ -87,12 +90,13 @@ export default function MermaidContainer() {
         onSessionClick={handleSessionClick}
         onRenameSession={handleRenameSession}
         onDeleteSession={handleDeleteSession}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
       <div className="flex-1 flex flex-col h-screen bg-[rgb(var(--sidebar-bg))]">
         <MermaidHeader
           currentSessionName={currentSessionName}
-          mermaidModel={mermaidModel}
-          onModelChange={handleModelChange}
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         />
 
         {/* Split Screen Layout */}
@@ -110,7 +114,9 @@ export default function MermaidContainer() {
             <MermaidInput
               input={input}
               isSending={isSending}
+              mermaidModel={mermaidModel}
               onInputChange={setInput}
+              onModelChange={handleModelChange}
               onSubmit={handleSubmit}
             />
           </div>

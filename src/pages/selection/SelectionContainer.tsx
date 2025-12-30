@@ -73,25 +73,25 @@ export default function SelectionContainer() {
   };
 
   return (
-    <div className="min-h-screen bg-[rgb(var(--sidebar-bg))] flex items-center justify-center p-8 relative">
+    <div className="min-h-screen bg-[rgb(var(--sidebar-bg))] flex items-center justify-center p-4 md:p-8 relative">
       {/* Theme Toggle */}
-      <div className="absolute top-6 right-6 z-50">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
         <ThemeToggle />
       </div>
 
       <div className="w-full max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+        <div className="text-center mb-8 md:mb-12 pt-12 md:pt-0">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse px-4">
             Choose Your Experience
           </h1>
-          <p className="text-[rgb(var(--secondary-text))] text-lg">
+          <p className="text-[rgb(var(--secondary-text))] text-sm md:text-base lg:text-lg px-4">
             Select a mode to get started with AI-powered features
           </p>
         </div>
 
         {/* 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {modes.map((mode, index) => (
             <ModeCard
               key={mode.id}
@@ -103,8 +103,8 @@ export default function SelectionContainer() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-12">
-          <p className="text-[rgb(var(--secondary-text))] text-sm">
+        <div className="text-center mt-8 md:mt-12 pb-4">
+          <p className="text-[rgb(var(--secondary-text))] text-xs md:text-sm">
             Powered by AI • Built with love
           </p>
         </div>

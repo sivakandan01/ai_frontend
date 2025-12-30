@@ -38,6 +38,7 @@ export default function RegisterContainer() {
           name: response.user.user_name,
           provider: response.user.provider,
           model: response.user.model,
+          isAuth: true,
         }));
       }
 
@@ -48,27 +49,27 @@ export default function RegisterContainer() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[rgb(var(--sidebar-bg))] relative">
+    <div className="flex items-center justify-center min-h-screen bg-[rgb(var(--sidebar-bg))] relative px-4">
       {/* Theme Toggle */}
-      <div className="absolute top-6 right-6 z-50">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
         <ThemeToggle />
       </div>
 
-      <div className="w-full max-w-md px-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[rgb(var(--primary-text))] mb-2">Create Account</h1>
-          <p className="text-[rgb(var(--secondary-text))]">Sign up to start chatting</p>
+      <div className="w-full max-w-md px-4 sm:px-6 md:px-8">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-[rgb(var(--primary-text))] mb-2">Create Account</h1>
+          <p className="text-sm md:text-base text-[rgb(var(--secondary-text))]">Sign up to start chatting</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
           {error && (
-            <div className="bg-red-500/10 border border-red-500 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl text-sm">
+            <div className="bg-red-500/10 border border-red-500 text-red-600 dark:text-red-400 px-3 md:px-4 py-2.5 md:py-3 rounded-xl text-xs md:text-sm">
               {error}
             </div>
           )}
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[rgb(var(--secondary-text))] mb-2">
+            <label htmlFor="name" className="block text-xs md:text-sm font-medium text-[rgb(var(--secondary-text))] mb-1.5 md:mb-2">
               Name
             </label>
             <input
@@ -77,12 +78,12 @@ export default function RegisterContainer() {
               value={user_name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
-              className="w-full px-4 py-3 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[rgb(var(--secondary-text))] mb-2">
+            <label htmlFor="email" className="block text-xs md:text-sm font-medium text-[rgb(var(--secondary-text))] mb-1.5 md:mb-2">
               Email
             </label>
             <input
@@ -91,13 +92,13 @@ export default function RegisterContainer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-[rgb(var(--secondary-text))] mb-2">
+            <label htmlFor="password" className="block text-xs md:text-sm font-medium text-[rgb(var(--secondary-text))] mb-1.5 md:mb-2">
               Password
             </label>
             <input
@@ -106,13 +107,13 @@ export default function RegisterContainer() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full px-4 py-3 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-[rgb(var(--secondary-text))] mb-2">
+            <label htmlFor="confirmPassword" className="block text-xs md:text-sm font-medium text-[rgb(var(--secondary-text))] mb-1.5 md:mb-2">
               Confirm Password
             </label>
             <input
@@ -121,7 +122,7 @@ export default function RegisterContainer() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
-              className="w-full px-4 py-3 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus:outline-none focus:border-emerald-500 text-[rgb(var(--primary-text))] placeholder-gray-500 overflow-hidden"
               required
             />
           </div>
@@ -129,14 +130,14 @@ export default function RegisterContainer() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-[rgb(var(--primary-text))] font-semibold rounded-xl transition-colors mt-6 disabled:bg-gray-400 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+            className="w-full py-3 md:py-3.5 text-sm md:text-base bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-[rgb(var(--primary-text))] font-semibold rounded-xl transition-colors mt-6 disabled:bg-gray-400 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
           >
             {isLoading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-[rgb(var(--secondary-text))] text-sm">
+        <div className="mt-5 md:mt-6 text-center">
+          <p className="text-[rgb(var(--secondary-text))] text-xs md:text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-emerald-500 hover:text-emerald-400 font-medium">
               Sign in

@@ -9,6 +9,7 @@ interface UserState {
   image_provider: string;
   mermaid_model: string;
   theme: 'light' | 'dark';
+  isAuth: boolean;
 }
 
 const initialState: UserState = {
@@ -19,6 +20,7 @@ const initialState: UserState = {
   image_provider: 'pollinations',
   mermaid_model: 'llama-3.3-70b-versatile',
   theme: 'dark',
+  isAuth: false,
 };
 
 const userSlice = createSlice({

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Sidebar } from "@/components/layout";
 import ImageHeader from "./components/ImageHeader";
 import ImageList from "./components/ImageList";
@@ -22,6 +23,8 @@ export default function ImageContainer() {
     handleProviderChange,
   } = useImageLogic();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="flex flex-row bg-[rgb(var(--sidebar-bg))] h-screen overflow-hidden">
       <Sidebar
@@ -32,18 +35,21 @@ export default function ImageContainer() {
         onSessionClick={handleSessionClick}
         onRenameSession={handleRenameSession}
         onDeleteSession={handleDeleteSession}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
       <div className="flex-1 flex flex-col overflow-hidden bg-[rgb(var(--main-surface))]">
         <ImageHeader
           currentSessionName={currentSessionName}
-          imageProvider={imageProvider}
-          onProviderChange={handleProviderChange}
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         />
         <ImageList images={images} />
         <ImageInput
           input={input}
           isSending={isSending}
+          imageProvider={imageProvider}
           onInputChange={setInput}
+          onProviderChange={handleProviderChange}
           onSubmit={handleSubmit}
         />
       </div>

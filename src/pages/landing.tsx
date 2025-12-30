@@ -135,28 +135,28 @@ export default function LandingPage() {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled
-            ? "py-3 bg-[rgb(var(--main-surface))]/95 backdrop-blur-xl shadow-lg border-b border-[rgb(var(--border-color))]"
-            : "py-6 bg-transparent"
+            ? "py-2 md:py-3 bg-[rgb(var(--main-surface))]/95 backdrop-blur-xl shadow-lg border-b border-[rgb(var(--border-color))]"
+            : "py-4 md:py-6 bg-transparent"
         )}
       >
-        <div className="mx-[5%] px-6 py-4 flex items-center justify-between">
+        <div className="mx-[2%] md:mx-[5%] px-3 md:px-6 py-3 md:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-[rgb(var(--button-primary))]" />
-            <h1 className="text-2xl font-bold text-[rgb(var(--primary-text))]">
+            <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-[rgb(var(--button-primary))]" />
+            <h1 className="text-lg md:text-2xl font-bold text-[rgb(var(--primary-text))]">
               AI Studio
             </h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <ThemeToggle />
             <button
               onClick={() => navigate('/login')}
-              className="px-4 py-2 text-[rgb(var(--secondary-text))] hover:text-[rgb(var(--primary-text))] transition-colors"
+              className="hidden sm:block px-3 md:px-4 py-1.5 md:py-2 text-sm md:text-base text-[rgb(var(--secondary-text))] hover:text-[rgb(var(--primary-text))] transition-colors"
             >
               Sign In
             </button>
             <button
               onClick={() => navigate('/register')}
-              className="px-6 py-2 bg-[rgb(var(--button-primary))] text-white rounded-lg hover:bg-[rgb(var(--button-hover))] transition-all shadow-lg hover:shadow-xl"
+              className="px-3 md:px-6 py-1.5 md:py-2 text-sm md:text-base bg-[rgb(var(--button-primary))] text-white rounded-lg hover:bg-[rgb(var(--button-hover))] transition-all shadow-lg hover:shadow-xl"
             >
               Get Started
             </button>
@@ -165,11 +165,11 @@ export default function LandingPage() {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="relative px-6 min-h-screen flex items-center justify-center">
-        <div className="max-w-7xl mx-auto relative z-10 w-full py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative px-4 md:px-6 min-h-screen flex items-center justify-center">
+        <div className="max-w-7xl mx-auto relative z-10 w-full py-20 md:py-32">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left: Content */}
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left pt-16 md:pt-0">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -195,10 +195,10 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-[rgb(var(--primary-text))] mb-6 leading-[1.1]"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[rgb(var(--primary-text))] mb-4 md:mb-6 leading-[1.1]"
               >
                 Turn Ideas Into Reality{' '}
-                <span className="block mt-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                <span className="block mt-1 md:mt-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
                   10x Faster
                 </span>
               </motion.h1>
@@ -207,7 +207,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-[rgb(var(--secondary-text))] mb-10 leading-relaxed max-w-xl"
+                className="text-base md:text-lg lg:text-xl text-[rgb(var(--secondary-text))] mb-6 md:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
               >
                 From brainstorming to final deliverable in minutes. Chat with the smartest AI models, extract insights from documents, generate stunning visuals, and create professional diagrams.
               </motion.p>
@@ -216,17 +216,17 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex gap-4 flex-wrap mb-8"
+                className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8 justify-center lg:justify-start"
               >
                 <motion.button
                   onClick={() => navigate('/register')}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl transition-all shadow-2xl shadow-emerald-500/25 hover:shadow-emerald-500/40 flex items-center gap-2 text-lg font-semibold overflow-hidden"
+                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl transition-all shadow-2xl shadow-emerald-500/25 hover:shadow-emerald-500/40 flex items-center justify-center gap-2 text-base md:text-lg font-semibold overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Start Creating - Free
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </motion.button>
@@ -234,7 +234,7 @@ export default function LandingPage() {
                   onClick={() => navigate('/login')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[rgb(var(--main-surface))] border-2 border-[rgb(var(--border-color))] text-[rgb(var(--primary-text))] rounded-xl hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-all shadow-lg text-lg font-semibold"
+                  className="px-6 md:px-8 py-3 md:py-4 bg-[rgb(var(--main-surface))] border-2 border-[rgb(var(--border-color))] text-[rgb(var(--primary-text))] rounded-xl hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition-all shadow-lg text-base md:text-lg font-semibold"
                 >
                   See It in Action
                 </motion.button>
@@ -353,7 +353,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mt-20"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto mt-12 md:mt-20"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -378,7 +378,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6 bg-[rgb(var(--main-surface))]/50">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-[rgb(var(--main-surface))]/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -393,15 +393,15 @@ export default function LandingPage() {
                 Powerful Features
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--primary-text))] mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[rgb(var(--primary-text))] mb-3 md:mb-4">
               Everything You Need
             </h2>
-            <p className="text-lg text-[rgb(var(--secondary-text))] max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-[rgb(var(--secondary-text))] max-w-2xl mx-auto">
               Four powerful AI tools integrated into one seamless experience
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 gap-4 md:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}

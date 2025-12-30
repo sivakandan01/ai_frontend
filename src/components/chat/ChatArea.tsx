@@ -71,7 +71,7 @@ export default function ChatArea({
   return (
     <div className="flex flex-1 flex-col bg-[rgb(var(--sidebar-bg))] overflow-hidden">
       {/* Messages Area */}
-      <div ref={messagesContainerRef} className="flex-1 mx-[6%] overflow-y-auto scrollbar-hide">
+      <div ref={messagesContainerRef} className="flex-1 mx-[2%] md:mx-[6%] overflow-y-auto scrollbar-hide">
         {messages.map((message, index) =>
           message.role === "user" ? (
             <Chats
@@ -93,10 +93,10 @@ export default function ChatArea({
       </div>
 
       {/* Input Form at bottom */}
-      <div className="bg-[rgb(var(--sidebar-bg))] px-6 py-5">
-        <div className="mx-[5%]">
-          <form onSubmit={onSubmit} className="flex gap-3">
-            <div className="flex-1 flex items-center gap-2 px-5 py-1 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus-within:border-[rgb(var(--border-color))]">
+      <div className="bg-[rgb(var(--sidebar-bg))] px-3 md:px-6 py-3 md:py-5">
+        <div className="mx-[1%] md:mx-[5%]">
+          <form onSubmit={onSubmit} className="flex flex-col md:flex-row gap-2 md:gap-3">
+            <div className="flex-1 flex flex-col md:flex-row items-stretch md:items-center gap-2 px-3 md:px-5 py-2 md:py-1 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus-within:border-[rgb(var(--border-color))]">
               <input
                 type="text"
                 value={input}
@@ -104,7 +104,7 @@ export default function ChatArea({
                 placeholder="Message..."
                 disabled={isSending}
                 readOnly={isSending}
-                className="flex-1 bg-transparent border-none focus:outline-none text-[rgb(var(--primary-text))] placeholder-[rgb(var(--secondary-text))] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                className="flex-1 bg-transparent border-none focus:outline-none text-sm md:text-base text-[rgb(var(--primary-text))] placeholder-[rgb(var(--secondary-text))] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden py-1 md:py-0"
               />
 
               <Select
@@ -116,7 +116,7 @@ export default function ChatArea({
                 }}
                 disabled={isSending}
               >
-                <SelectTrigger className="w-[120px] h-9">
+                <SelectTrigger className="w-full md:w-[120px] h-8 md:h-9 text-xs md:text-sm">
                   <SelectValue>
                     <span className="capitalize">{provider}</span>
                   </SelectValue>
@@ -136,7 +136,7 @@ export default function ChatArea({
             <button
               type="submit"
               disabled={!input.trim() || isSending}
-              className="px-6 py-3.5 bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-white font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 md:px-6 py-2.5 md:py-3.5 text-sm md:text-base bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-white font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isSending ? "Sending..." : "Send"}
             </button>

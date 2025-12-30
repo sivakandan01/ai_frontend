@@ -1,35 +1,63 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface ImageInputProps {
   input: string;
   isSending: boolean;
+  imageProvider: string;
   onInputChange: (value: string) => void;
+  onProviderChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
 export default function ImageInput({
   input,
   isSending,
+  imageProvider,
   onInputChange,
+  onProviderChange,
   onSubmit,
 }: ImageInputProps) {
   return (
-    <form onSubmit={onSubmit} className="p-6 bg-[rgb(var(--sidebar-bg))]">
-      <div className="flex gap-3">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => onInputChange(e.target.value)}
-          placeholder="Describe the image you want to generate..."
-          className="flex-1 bg-[rgb(var(--input-bg))] text-[rgb(var(--primary-text))] rounded-lg px-4 py-3 focus:outline-none border border-[rgb(var(--border-color))] overflow-hidden"
-          disabled={isSending}
-        />
-        <button
-          type="submit"
-          disabled={isSending || !input.trim()}
-          className="bg-[rgb(var(--button-primary))] text-white px-6 py-3 rounded-lg hover:bg-[rgb(var(--button-hover))] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          Generate
-        </button>
+    <div className="bg-[rgb(var(--sidebar-bg))] px-3 md:px-6 py-3 md:py-5">
+      <div className="mx-[1%] md:mx-[5%]">
+        <form onSubmit={onSubmit} className="flex flex-col md:flex-row gap-2 md:gap-3">
+          <div className="flex-1 flex flex-col md:flex-row items-stretch md:items-center gap-2 px-3 md:px-5 py-2 md:py-1 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-xl focus-within:border-[rgb(var(--border-color))]">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => !isSending && onInputChange(e.target.value)}
+              placeholder="Describe the image you want to generate..."
+              disabled={isSending}
+              readOnly={isSending}
+              className="flex-1 bg-transparent border-none focus:outline-none text-sm md:text-base text-[rgb(var(--primary-text))] placeholder-[rgb(var(--secondary-text))] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden py-1 md:py-0"
+            />
+
+            <Select value={imageProvider} onValueChange={onProviderChange} disabled={isSending}>
+              <SelectTrigger className="w-full md:w-[120px] h-8 md:h-9 text-xs md:text-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pollinations">Pollinations</SelectItem>
+                <SelectItem value="huggingface">Hugging Face</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <button
+            type="submit"
+            disabled={!input.trim() || isSending}
+            className="px-4 md:px-6 py-2.5 md:py-3.5 text-sm md:text-base bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-white font-medium rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isSending ? "Generating..." : "Generate"}
+          </button>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }

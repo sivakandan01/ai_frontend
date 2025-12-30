@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearUser } from "@/store/slices/userSlice";
 import { type SessionResponse } from "@/services/api/rag";
 
 interface SidebarProps {
@@ -10,6 +12,8 @@ interface SidebarProps {
   onSessionClick: (id: string) => void;
   onRenameSession: (id: string, newName: string) => void;
   onDeleteSession: (id: string) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export default function Sidebar({
@@ -20,8 +24,11 @@ export default function Sidebar({
   onSessionClick,
   onRenameSession,
   onDeleteSession,
+  isOpen = true,
+  onClose,
 }: SidebarProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
   const [originalName, setOriginalName] = useState("");
@@ -32,8 +39,12 @@ export default function Sidebar({
   };
 
   const handleLogout = () => {
+    // Clear auth token from localStorage
     localStorage.removeItem("access_token");
-    window.location.href = "/login";
+    // Clear user state from Redux
+    dispatch(clearUser());
+    // Navigate to login page
+    navigate("/login");
   };
 
   const startRename = (id: string, currentName: string) => {
@@ -64,14 +75,36 @@ export default function Sidebar({
     setDeletingId(null);
   };
 
+  const handleSessionClick = (id: string) => {
+    onSessionClick(id);
+    // Close sidebar on mobile when selecting a session
+    if (onClose && window.innerWidth < 768) {
+      onClose();
+    }
+  };
+
+  const handleNewChatClick = () => {
+    onNewChat();
+    // Close sidebar on mobile when creating new chat
+    if (onClose && window.innerWidth < 768) {
+      onClose();
+    }
+  };
+
   if (mode !== "ai") {
-    return (
-      <div className="w-[280px] bg-[rgb(var(--sidebar-bg))] border-r border-[rgb(var(--border-color))] flex flex-col h-screen"></div>
-    );
+    return null;
   }
 
   return (
     <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={onClose}
+        />
+      )}
+
       {/* Delete Confirmation Modal */}
       {deletingId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -105,7 +138,7 @@ export default function Sidebar({
         </div>
       )}
 
-      <div className="w-[280px] bg-[rgb(var(--sidebar-bg))] border-r border-[rgb(var(--border-color))] flex flex-col h-screen">
+      <div className={`fixed md:relative w-[280px] bg-[rgb(var(--sidebar-bg))] border-r border-[rgb(var(--border-color))] flex flex-col h-screen z-50 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
         {/* Top Space */}
         <div className="h-[20px] flex-shrink-0"></div>
 
@@ -135,7 +168,7 @@ export default function Sidebar({
         {/* New Chat Button */}
         <div className="px-4 flex-shrink-0">
         <button
-          onClick={onNewChat}
+          onClick={handleNewChatClick}
           className="w-full px-4 py-2.5 bg-[rgb(var(--button-primary))] hover:bg-[rgb(var(--button-hover))] text-white font-medium rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm"
         >
           <svg
@@ -194,7 +227,7 @@ export default function Sidebar({
                   /* Normal Mode */
                   <>
                     <button
-                      onClick={() => onSessionClick(session.id)}
+                      onClick={() => handleSessionClick(session.id)}
                       className="w-full text-left px-3 py-2.5 flex items-center gap-3"
                     >
                       <svg

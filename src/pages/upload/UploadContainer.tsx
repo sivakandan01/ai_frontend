@@ -76,12 +76,12 @@ export default function UploadContainer() {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-[#212121] flex items-center justify-center p-4 relative">
       {/* Theme Toggle */}
-      <div className="absolute top-6 right-6 z-50">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
         <ThemeToggle />
       </div>
 
-      <div className="w-full max-w-2xl">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8">
+      <div className="w-full max-w-2xl pt-12 md:pt-0">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-6 md:mb-8 px-4">
           Upload Your PDF Document
         </h1>
 
@@ -90,7 +90,7 @@ export default function UploadContainer() {
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          className={`bg-white dark:bg-[#2f2f2f] border-2 border-dashed rounded-lg p-12 transition-colors ${
+          className={`bg-white dark:bg-[#2f2f2f] border-2 border-dashed rounded-lg p-6 md:p-12 transition-colors ${
             dragActive
               ? "border-blue-500 bg-blue-50 dark:bg-[#3a3a3a]"
               : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
@@ -98,7 +98,7 @@ export default function UploadContainer() {
         >
           <div className="text-center">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400 mb-4"
+              className="mx-auto h-10 w-10 md:h-12 md:w-12 text-gray-400 mb-3 md:mb-4"
               stroke="currentColor"
               fill="none"
               viewBox="0 0 48 48"
@@ -113,18 +113,18 @@ export default function UploadContainer() {
             </svg>
 
             {file ? (
-              <div className="mb-4">
-                <p className="text-gray-900 dark:text-white font-medium">{file.name}</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <div className="mb-3 md:mb-4">
+                <p className="text-gray-900 dark:text-white font-medium text-sm md:text-base truncate px-4">{file.name}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
                   {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
             ) : (
               <>
-                <p className="text-gray-900 dark:text-white mb-2">
+                <p className="text-gray-900 dark:text-white mb-2 text-sm md:text-base px-4">
                   Drag and drop your PDF file here, or
                 </p>
-                <label className="cursor-pointer text-blue-500 hover:text-blue-400">
+                <label className="cursor-pointer text-blue-500 hover:text-blue-400 text-sm md:text-base">
                   browse
                   <input
                     type="file"
@@ -139,16 +139,16 @@ export default function UploadContainer() {
         </div>
 
         {error && (
-          <div className="mt-4 bg-red-900/50 border border-red-500 rounded-lg p-3">
-            <p className="text-red-200 text-sm">{error}</p>
+          <div className="mt-3 md:mt-4 bg-red-900/50 border border-red-500 rounded-lg p-2.5 md:p-3">
+            <p className="text-red-200 text-xs md:text-sm">{error}</p>
           </div>
         )}
 
-        <div className="mt-6 flex gap-4">
+        <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-3 md:gap-4">
           <button
             onClick={handleUpload}
             disabled={!file || uploading}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors"
+            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
           >
             {uploading ? "Uploading..." : "Upload & Continue"}
           </button>
@@ -156,13 +156,13 @@ export default function UploadContainer() {
           <button
             onClick={handleSkip}
             disabled={uploading}
-            className="flex-1 bg-gray-200 dark:bg-[#2f2f2f] hover:bg-gray-300 dark:hover:bg-[#3a3a3a] disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-900 dark:text-white font-medium py-3 px-6 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors"
+            className="flex-1 bg-gray-200 dark:bg-[#2f2f2f] hover:bg-gray-300 dark:hover:bg-[#3a3a3a] disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-900 dark:text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors text-sm md:text-base"
           >
             Skip for Now
           </button>
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 text-sm text-center mt-4">
+        <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm text-center mt-3 md:mt-4">
           Supported format: PDF (Max 10MB)
         </p>
       </div>
