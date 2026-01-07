@@ -15,8 +15,7 @@ import {
 
 const PROVIDER_MODELS: Record<string, string[]> = {
   groq: ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "openai/gpt-oss-120b"],
-  gemini: ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash-001"],
-  ollama: ["llama3.2", "llama3.1", "mistral", "phi3", "gemma2", "gemma2:2b"]
+  gemini: ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash-001"]
 };
 
 interface ChatAreaProps {
