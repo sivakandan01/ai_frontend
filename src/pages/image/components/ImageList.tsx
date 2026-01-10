@@ -48,7 +48,7 @@ export default function ImageList({ images }: ImageListProps) {
                     </div>
                   ) : (
                     <img
-                      src={`${import.meta.env.VITE_BASE_URL}${img.image_url}`}
+                      src={img.image_url.startsWith('http') ? img.image_url : `${import.meta.env.VITE_BASE_URL}${img.image_url}`}
                       alt={img.prompt}
                       className="rounded-lg max-w-full h-auto"
                     />
