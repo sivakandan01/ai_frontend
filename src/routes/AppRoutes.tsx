@@ -9,6 +9,7 @@ import SelectionPage from "@/pages/selection";
 import UploadPage from "@/pages/upload";
 import ImagePage from "@/pages/image";
 import MermaidPage from "@/pages/mermaid";
+import MessagePage from "@/pages/messages"
 
 export default function AppRoutes() {
   return (
@@ -43,6 +44,16 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+        <Route
+        path="/message"
+        element={
+          <ProtectedRoute>
+            <MessagePage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/upload"
         element={

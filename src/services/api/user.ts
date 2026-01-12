@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface User {
+  id: string;
+  user_name: string;
+  email: string;
+}
+
 interface UpdateUserRequest {
   provider?: string;
   model?: string;
@@ -30,6 +36,12 @@ export const userApi = createApi({
     },
   }),
   endpoints: (builder) => ({
+    getUsers: builder.query<User[], string | void>({
+      query: (search) => ({
+        url: "/users/",
+        params: search ? { search } : {},
+      }),
+    }),
     updateUser: builder.mutation<UpdateUserResponse, UpdateUserRequest>({
       query: (data) => ({
         url: "/users/",
@@ -40,4 +52,4 @@ export const userApi = createApi({
   }),
 });
 
-export const { useUpdateUserMutation } = userApi;
+export const { useGetUsersQuery, useUpdateUserMutation } = userApi;
