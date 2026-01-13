@@ -1,22 +1,14 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import MessageList from "./MessageList";
+import { useGetChatsQuery, useSendChatMutation } from "@/services/api/chats";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 interface User {
     id: string;
     user_name: string;
     email: string;
-}
-
-interface UserMessage {
-    id?: string;
-    sender_id: string;
-    receiver_id: string;
-    content: string;
-    created_at: string;
-    status: 'sending' | 'sent' | 'delivered' | 'failed';
-    is_read: boolean;
-    is_user: boolean;
 }
 
 interface MessagesProps {
@@ -25,35 +17,30 @@ interface MessagesProps {
 
 const Messages = ({ selectedUser }: MessagesProps) => {
     const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState<UserMessage[]>([]);
+    const currentUser = useSelector((state: RootState) => state.user);
+    const currentUserId = currentUser.id || "";
 
-    const currentUserId = "current-user-123";
+    const { data: chatHistory, isLoading: loadingHistory } = useGetChatsQuery(selectedUser?.id || "", {
+        skip: !selectedUser?.id,
+    });
 
-    const handleSendMessage = () => {
+    const [sendChat] = useSendChatMutation();
+
+    const handleSendMessage = async () => {
         if (!message.trim() || !selectedUser) return;
 
-        const newMessage: UserMessage = {
-            sender_id: currentUserId,
-            receiver_id: selectedUser.id,
-            content: message.trim(),
-            created_at: new Date().toISOString(),
-            status: 'sending',
-            is_read: false,
-            is_user: true 
-        };
-
-        setMessages([...messages, newMessage]);
+        const messageContent = message.trim();
         setMessage("");
 
-        setTimeout(() => {
-            setMessages(prev =>
-                prev.map(msg =>
-                    msg.id === newMessage.id
-                        ? { ...msg, status: 'sent' as const }
-                        : msg
-                )
-            );
-        }, 1000);
+        try {
+            await sendChat({
+                receiver_id: selectedUser.id,
+                content: messageContent,
+                is_user: true
+            }).unwrap();
+        } catch (err) {
+            console.error("Failed to send message:", err);
+        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -88,8 +75,9 @@ const Messages = ({ selectedUser }: MessagesProps) => {
             </div>
 
             <MessageList
-                messages={messages}
-                isLoading={false}
+                messages={(chatHistory as any) || []}
+                isLoading={loadingHistory}
+                currentUserId={currentUserId}
                 onRetry={(messageId) => {
                     console.log("Retrying message:", messageId);
                 }}

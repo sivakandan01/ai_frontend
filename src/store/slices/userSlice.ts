@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  email: string | null;
+  id: string | null;
   name: string | null;
+  email: string | null;
   provider: string;
   model: string;
   image_provider: string;
@@ -13,8 +14,9 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  email: null,
+  id: null,
   name: null,
+  email: null,
   provider: 'groq',
   model: 'llama-3.3-70b-versatile',
   image_provider: 'pollinations',

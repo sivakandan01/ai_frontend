@@ -8,6 +8,7 @@ import { ragApi } from '../services/api/rag';
 import { userApi } from '../services/api/user';
 import { imageApi } from '../services/api/image';
 import { mermaidApi } from '../services/api/mermaid';
+import { chatsApi } from '../services/api/chats';
 import userReducer from './slices/userSlice';
 
 const userPersistConfig = {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [imageApi.reducerPath]: imageApi.reducer,
     [mermaidApi.reducerPath]: mermaidApi.reducer,
+    [chatsApi.reducerPath]: chatsApi.reducer,
     user: persistedUserReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -32,7 +34,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
       },
-    }).concat(messageApi.middleware, authApi.middleware, ragApi.middleware, userApi.middleware, imageApi.middleware, mermaidApi.middleware),
+    }).concat(messageApi.middleware, authApi.middleware, ragApi.middleware, userApi.middleware, imageApi.middleware, mermaidApi.middleware, chatsApi.middleware),
 });
 
 export const persistor = persistStore(store);

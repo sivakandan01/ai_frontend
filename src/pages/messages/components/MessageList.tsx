@@ -1,29 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import MessageBubble from "./MessageBubble";
-
-interface UserMessage {
-    id?: string;
-    sender_id: string;
-    receiver_id: string;
-    content: string;
-    created_at: string;
-    status: 'sending' | 'sent' | 'delivered' | 'failed';
-    is_read: boolean;
-    is_user: boolean;
-}
+import { type ChatMessage } from "@/services/api/chats";
 
 interface MessageListProps {
-    messages: UserMessage[];
+    messages: ChatMessage[];
     isLoading: boolean;
+    currentUserId: string;
     onRetry?: (messageId: string) => void;
 }
 
 interface MessageGroup {
     date: string;
-    messages: UserMessage[];
+    messages: ChatMessage[];
 }
 
-const MessageList = ({ messages, isLoading, onRetry }: MessageListProps) => {
+const MessageList = ({ messages, isLoading, currentUserId, onRetry }: MessageListProps) => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [isUserScrolling, setIsUserScrolling] = useState(false);
@@ -46,8 +37,8 @@ const MessageList = ({ messages, isLoading, onRetry }: MessageListProps) => {
         }
     };
 
-    const groupMessagesByDate = (messages: UserMessage[]): MessageGroup[] => {
-        const groups: Record<string, UserMessage[]> = {};
+    const groupMessagesByDate = (messages: ChatMessage[]): MessageGroup[] => {
+        const groups: Record<string, ChatMessage[]> = {};
 
         messages.forEach(msg => {
             const dateKey = new Date(msg.created_at).toDateString();
@@ -128,6 +119,7 @@ const MessageList = ({ messages, isLoading, onRetry }: MessageListProps) => {
                         <MessageBubble
                             key={message.id || `${message.created_at}-${index}`}
                             message={message}
+                            isOutgoing={message.sender_id === currentUserId}
                             onRetry={onRetry}
                         />
                     ))}
