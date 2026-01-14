@@ -2,11 +2,7 @@ import { useState, useEffect } from "react"
 import { Search, Loader2 } from "lucide-react"
 import { useGetUsersQuery } from "@/services/api/user"
 
-interface User {
-    id: string
-    user_name: string
-    email: string
-}
+import type { User } from "@/types/user";
 
 interface SearchBarProps {
     onUserSelect: (user: User) => void

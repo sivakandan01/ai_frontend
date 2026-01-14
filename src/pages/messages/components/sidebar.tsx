@@ -1,11 +1,7 @@
 import { useGetConversationsQuery } from "@/services/api/chats";
 import { Loader2 } from "lucide-react";
 
-interface User {
-    id: string;
-    user_name: string;
-    email: string;
-}
+import type { User } from "@/types/user";
 
 interface MessageSidebarProps {
     onUserSelect: (user: User) => void;

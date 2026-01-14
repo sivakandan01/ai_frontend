@@ -2,23 +2,18 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import MessageList from "./MessageList";
 import { useGetChatsQuery, useSendChatMutation } from "@/services/api/chats";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
-interface User {
-    id: string;
-    user_name: string;
-    email: string;
-}
+import type { User } from "@/types/user";
 
 interface MessagesProps {
     selectedUser: User | null;
+    onToggleAi: (open: boolean) => void;
 }
 
-const Messages = ({ selectedUser }: MessagesProps) => {
+const Messages = ({ selectedUser, onToggleAi }: MessagesProps) => {
     const [message, setMessage] = useState("");
-    const currentUser = useSelector((state: RootState) => state.user);
-    const currentUserId = currentUser.id || "";
+    const { userId: currentUserId } = useCurrentUser();
 
     const { data: chatHistory, isLoading: loadingHistory } = useGetChatsQuery(selectedUser?.id || "", {
         skip: !selectedUser?.id,
@@ -30,6 +25,13 @@ const Messages = ({ selectedUser }: MessagesProps) => {
         if (!message.trim() || !selectedUser) return;
 
         const messageContent = message.trim();
+
+        if (messageContent.toLowerCase() === "@chat") {
+            onToggleAi(true);
+            setMessage("");
+            return;
+        }
+
         setMessage("");
 
         try {

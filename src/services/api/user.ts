@@ -1,10 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface User {
-  id: string;
-  user_name: string;
-  email: string;
-}
+import type { User } from "@/types/user";
 
 interface UpdateUserRequest {
   provider?: string;

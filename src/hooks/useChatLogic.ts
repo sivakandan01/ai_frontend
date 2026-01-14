@@ -23,7 +23,6 @@ export const useChatLogic = () => {
   const [updateSession] = useUpdateSessionMutation();
   const [deleteSession] = useDeleteSessionMutation();
 
-  // Only fetch sessions for AI mode
   const { data: sessions, refetch: refetchSessions } = useGetSessionsQuery(
     { type: "message" },
     {
@@ -31,12 +30,10 @@ export const useChatLogic = () => {
     }
   );
 
-  // Get current session name
   const currentSessionName = useMemo(() => {
     return sessions?.find((s) => s.id === sessionId)?.session_name;
   }, [sessions, sessionId]);
 
-  // Fetch messages for selected session
   const { data: sessionMessages } = useGetMessagesQuery(sessionId || "", {
     skip: !sessionId || mode === "rag",
   });
@@ -71,7 +68,6 @@ export const useChatLogic = () => {
     }
   };
 
-  // Load messages when sessionMessages changes
   useEffect(() => {
     if (sessionMessages && sessionMessages.length > 0) {
       const loadedMessages: LocalMessage[] = sessionMessages.map((msg) => ({
