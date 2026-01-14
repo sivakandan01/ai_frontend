@@ -4,7 +4,6 @@ import GlobalSidebar from "./GlobalSidebar";
 const MainLayout = () => {
     const location = useLocation();
 
-    // Hide sidebar on specific AI feature routes and their children
     const hiddenRoutes = ["/selection/upload", "/selection/chat", "/selection/image", "/selection/mermaid"];
     const shouldHideSidebar = hiddenRoutes.some(path => location.pathname.startsWith(path));
 

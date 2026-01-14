@@ -4,6 +4,7 @@ import { clearUser } from "@/store/slices/userSlice";
 import {
     LayoutGrid,
     MessageSquare,
+    Wrench,
     Settings,
     LogOut,
 } from "lucide-react";
@@ -32,6 +33,12 @@ const GlobalSidebar = () => {
             icon: <MessageSquare className="w-6 h-6" />,
             label: "Messages",
             path: "/message"
+        },
+        {
+            id: "project_generator",
+            icon: <Wrench className="w-6 h-6" />,
+            label: "Project Gen",
+            path: "/project-generator"
         },
     ];
 

@@ -24,6 +24,11 @@
     --button-secondary-hover: 209 213 219;
     --icon-color: 142 142 160;
     --error-color: 239 68 68;
+    
+    /* Premium Accents */
+    --accent-blue: 59 130 246;
+    --accent-purple: 147 51 234;
+    --accent-pink: 236 72 153;
   }
 
   .dark {
@@ -41,6 +46,11 @@
     --button-secondary-hover: 110 118 129;
     --icon-color: 139 148 158;
     --error-color: 248 81 73;
+
+    /* Premium Accents */
+    --accent-blue: 60 162 255;
+    --accent-purple: 168 85 247;
+    --accent-pink: 244 114 182;
     
     /* Focus Ring */
     --focus-ring: 35 134 54 / 0.4;

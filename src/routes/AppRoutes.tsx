@@ -9,7 +9,8 @@ import SelectionPage from "@/pages/selection";
 import UploadPage from "@/pages/upload";
 import ImagePage from "@/pages/image";
 import MermaidPage from "@/pages/mermaid";
-import MessagePage from "@/pages/messages"
+import MessagePage from "@/pages/messages";
+import ProjectGeneratorPage from "@/pages/project-generator";
 import { MainLayout } from '@/components/layout';
 
 export default function AppRoutes() {
@@ -48,6 +49,7 @@ export default function AppRoutes() {
                 </Route>
 
                 <Route path="/message" element={<MessagePage />} />
+                <Route path="/project-generator" element={<ProjectGeneratorPage />} />
             </Route>
         </Routes>
     );
