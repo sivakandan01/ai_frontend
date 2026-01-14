@@ -27,20 +27,28 @@
   }
 
   .dark {
-    /* Dark Mode - ChatGPT Style */
-    --sidebar-bg: 32 33 35;
-    --main-surface: 52 53 65;
-    --input-bg: 64 65 79;
-    --primary-text: 217 217 227;
-    --secondary-text: 142 142 160;
-    --border-color: 86 88 105;
-    --hover-bg: 64 65 79;
-    --button-primary: 16 185 129;
-    --button-hover: 5 150 105;
-    --button-secondary: 52 53 65;
-    --button-secondary-hover: 64 65 79;
-    --icon-color: 172 172 190;
-    --error-color: 248 113 113;
+    /* Premium Dark Mode - Deep Slate & Charcoal */
+    --sidebar-bg: 13 17 23;      /* Deep background (GitHub Dark style) */
+    --main-surface: 22 27 34;    /* Slightly lighter surface */
+    --input-bg: 30 35 44;       /* Clearly distinct input areas */
+    --primary-text: 240 246 252; /* High-contrast white */
+    --secondary-text: 139 148 158; /* Muted grey blue */
+    --border-color: 48 54 61;    /* Subtle borders */
+    --hover-bg: 33 38 45;       /* Hover state */
+    --button-primary: 35 134 54; /* Premium Green */
+    --button-hover: 46 160 67;   /* Brighter green on hover */
+    --button-secondary: 48 54 61; 
+    --button-secondary-hover: 110 118 129;
+    --icon-color: 139 148 158;
+    --error-color: 248 81 73;
+    
+    /* Focus Ring */
+    --focus-ring: 35 134 54 / 0.4;
+    
+    /* New Semantic Tokens for Chat */
+    --bubble-incoming: 33 38 45;
+    --bubble-outgoing: 35 134 54;
+    --scrollbar-thumb: 66 74 83;
   }
 
   body {

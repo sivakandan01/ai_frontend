@@ -52,7 +52,7 @@ const Messages = ({ selectedUser }: MessagesProps) => {
 
     if (!selectedUser) {
         return (
-            <div className="w-full h-full flex items-center justify-center text-gray-500">
+            <div className="w-full h-full flex items-center justify-center text-[rgb(var(--secondary-text))] bg-[rgb(var(--main-surface))] transition-colors duration-300">
                 <div className="text-center">
                     <p className="text-lg font-medium">No conversation selected</p>
                     <p className="text-sm mt-2">Search for a user to start chatting</p>
@@ -62,14 +62,14 @@ const Messages = ({ selectedUser }: MessagesProps) => {
     }
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-[rgb(var(--main-surface))] transition-colors duration-300">
             {/* Chat Header */}
-            <div className="flex-none h-16 border-b border-gray-200 px-6 flex items-center gap-3 bg-white">
+            <div className="flex-none h-16 border-b border-[rgb(var(--border-color))] px-6 flex items-center gap-3 bg-[rgb(var(--sidebar-bg))]">
                 {/* Avatar */}
-                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[rgb(var(--button-primary))] flex items-center justify-center text-white font-semibold flex-shrink-0 shadow-sm">
                     {selectedUser.user_name.charAt(0).toUpperCase()}
                 </div>
-                <div className="font-semibold text-gray-900 truncate">
+                <div className="font-semibold text-[rgb(var(--primary-text))] truncate">
                     {selectedUser.user_name}
                 </div>
             </div>
@@ -84,7 +84,7 @@ const Messages = ({ selectedUser }: MessagesProps) => {
             />
 
             {/* Footer - Input Area */}
-            <div className="flex-none border-t border-gray-200 bg-white p-4">
+            <div className="flex-none border-t border-[rgb(var(--border-color))] bg-[rgb(var(--sidebar-bg))] p-4">
                 <div className="flex items-center gap-3">
                     <input
                         type="text"
@@ -92,12 +92,12 @@ const Messages = ({ selectedUser }: MessagesProps) => {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-400"
+                        className="flex-1 px-4 py-2 bg-[rgb(var(--input-bg))] border border-[rgb(var(--border-color))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))] text-[rgb(var(--primary-text))] placeholder-[rgb(var(--secondary-text))] transition-all"
                     />
                     <button
                         onClick={handleSendMessage}
                         disabled={!message.trim()}
-                        className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 bg-[rgb(var(--button-primary))] text-white rounded-lg hover:opacity-90 disabled:bg-[rgb(var(--button-secondary))] disabled:cursor-not-allowed transition-colors shadow-sm"
                     >
                         <Send className="h-5 w-5" />
                     </button>

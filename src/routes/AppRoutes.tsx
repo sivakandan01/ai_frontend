@@ -10,82 +10,45 @@ import UploadPage from "@/pages/upload";
 import ImagePage from "@/pages/image";
 import MermaidPage from "@/pages/mermaid";
 import MessagePage from "@/pages/messages"
+import { MainLayout } from '@/components/layout';
 
 export default function AppRoutes() {
-  return (
-    <Routes>
-      {/* Public Routes - Accessible without authentication */}
-      <Route path="/" element={<LandingPage />} />
+    return (
+        <Routes>
+            {/* Public Routes - Accessible without authentication */}
+            <Route path="/" element={<LandingPage />} />
 
-      {/* Auth Routes - Redirect to /selection if already authenticated */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicRoute>
-            <RegisterPage />
-          </PublicRoute>
-        }
-      />
+            {/* Auth Routes - Redirect to /selection if already authenticated */}
+            <Route
+                path="/login"
+                element={
+                    <PublicRoute>
+                        <LoginPage />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path="/register"
+                element={
+                    <PublicRoute>
+                        <RegisterPage />
+                    </PublicRoute>
+                }
+            />
 
-      {/* Protected Routes - Require authentication */}
-      <Route
-        path="/selection"
-        element={
-          <ProtectedRoute>
-            <SelectionPage />
-          </ProtectedRoute>
-        }
-      />
+            {/* Protected Routes - Require authentication */}
+            <Route element={<ProtectedRoute children={<MainLayout />} />}>
+                {/* Selection & AI Features */}
+                <Route path="/selection">
+                    <Route index element={<SelectionPage />} />
+                    <Route path="chat" element={<ChatPage />} />
+                    <Route path="upload" element={<UploadPage />} />
+                    <Route path="image" element={<ImagePage />} />
+                    <Route path="mermaid" element={<MermaidPage />} />
+                </Route>
 
-        <Route
-        path="/message"
-        element={
-          <ProtectedRoute>
-            <MessagePage />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/upload"
-        element={
-          <ProtectedRoute>
-            <UploadPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/chat"
-        element={
-          <ProtectedRoute>
-            <ChatPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/image"
-        element={
-          <ProtectedRoute>
-            <ImagePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/mermaid"
-        element={
-          <ProtectedRoute>
-            <MermaidPage />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
+                <Route path="/message" element={<MessagePage />} />
+            </Route>
+        </Routes>
+    );
 }

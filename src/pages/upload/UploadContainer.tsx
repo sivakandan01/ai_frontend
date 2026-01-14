@@ -4,168 +4,167 @@ import { useUploadDocumentMutation } from "@/services/api/rag";
 import { ThemeToggle } from "@/components/common";
 
 export default function UploadContainer() {
-  const navigate = useNavigate();
-  const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const [uploadDocument, { isLoading: uploading }] = useUploadDocumentMutation();
+    const navigate = useNavigate();
+    const [file, setFile] = useState<File | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [dragActive, setDragActive] = useState(false);
+    const [uploadDocument, { isLoading: uploading }] = useUploadDocumentMutation();
 
-  const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
+    const handleDrag = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === "dragenter" || e.type === "dragover") {
+            setDragActive(true);
+        } else if (e.type === "dragleave") {
+            setDragActive(false);
+        }
+    };
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const droppedFile = e.dataTransfer.files[0];
-      if (droppedFile.type === "application/pdf") {
-        setFile(droppedFile);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const droppedFile = e.dataTransfer.files[0];
+            if (droppedFile.type === "application/pdf") {
+                setFile(droppedFile);
+                setError(null);
+            } else {
+                setError("Please upload a PDF file");
+            }
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const selectedFile = e.target.files[0];
+            if (selectedFile.type === "application/pdf") {
+                setFile(selectedFile);
+                setError(null);
+            } else {
+                setError("Please upload a PDF file");
+            }
+        }
+    };
+
+    const handleUpload = async () => {
+        if (!file) {
+            setError("Please select a PDF file");
+            return;
+        }
+
         setError(null);
-      } else {
-        setError("Please upload a PDF file");
-      }
-    }
-  };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      if (selectedFile.type === "application/pdf") {
-        setFile(selectedFile);
-        setError(null);
-      } else {
-        setError("Please upload a PDF file");
-      }
-    }
-  };
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
 
-  const handleUpload = async () => {
-    if (!file) {
-      setError("Please select a PDF file");
-      return;
-    }
+            await uploadDocument(formData).unwrap();
 
-    setError(null);
+            // Success - navigate to chat in RAG mode
+            navigate("/selection/chat", { state: { mode: "rag" } });
+        } catch (err: any) {
+            setError(err?.data?.message || "Failed to upload PDF. Please try again.");
+        }
+    };
 
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
+    const handleSkip = () => {
+        navigate("/selection/chat", { state: { mode: "rag" } });
+    };
 
-      await uploadDocument(formData).unwrap();
+    return (
+        <div className="min-h-screen bg-gray-100 dark:bg-[#212121] flex items-center justify-center p-4 relative">
+            {/* Theme Toggle */}
+            <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
+                <ThemeToggle />
+            </div>
 
-      // Success - navigate to chat in RAG mode
-      navigate("/chat", { state: { mode: "rag" } });
-    } catch (err: any) {
-      setError(err?.data?.message || "Failed to upload PDF. Please try again.");
-    }
-  };
+            <div className="w-full max-w-2xl pt-12 md:pt-0">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-6 md:mb-8 px-4">
+                    Upload Your PDF Document
+                </h1>
 
-  const handleSkip = () => {
-    navigate("/chat", { state: { mode: "rag" } });
-  };
+                <div
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                    className={`bg-white dark:bg-[#2f2f2f] border-2 border-dashed rounded-lg p-6 md:p-12 transition-colors ${dragActive
+                            ? "border-blue-500 bg-blue-50 dark:bg-[#3a3a3a]"
+                            : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
+                        }`}
+                >
+                    <div className="text-center">
+                        <svg
+                            className="mx-auto h-10 w-10 md:h-12 md:w-12 text-gray-400 mb-3 md:mb-4"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 48 48"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
 
-  return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#212121] flex items-center justify-center p-4 relative">
-      {/* Theme Toggle */}
-      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-50">
-        <ThemeToggle />
-      </div>
+                        {file ? (
+                            <div className="mb-3 md:mb-4">
+                                <p className="text-gray-900 dark:text-white font-medium text-sm md:text-base truncate px-4">{file.name}</p>
+                                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
+                                    {(file.size / 1024 / 1024).toFixed(2)} MB
+                                </p>
+                            </div>
+                        ) : (
+                            <>
+                                <p className="text-gray-900 dark:text-white mb-2 text-sm md:text-base px-4">
+                                    Drag and drop your PDF file here, or
+                                </p>
+                                <label className="cursor-pointer text-blue-500 hover:text-blue-400 text-sm md:text-base">
+                                    browse
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept="application/pdf"
+                                        onChange={handleFileChange}
+                                    />
+                                </label>
+                            </>
+                        )}
+                    </div>
+                </div>
 
-      <div className="w-full max-w-2xl pt-12 md:pt-0">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-6 md:mb-8 px-4">
-          Upload Your PDF Document
-        </h1>
+                {error && (
+                    <div className="mt-3 md:mt-4 bg-red-900/50 border border-red-500 rounded-lg p-2.5 md:p-3">
+                        <p className="text-red-200 text-xs md:text-sm">{error}</p>
+                    </div>
+                )}
 
-        <div
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-          className={`bg-white dark:bg-[#2f2f2f] border-2 border-dashed rounded-lg p-6 md:p-12 transition-colors ${
-            dragActive
-              ? "border-blue-500 bg-blue-50 dark:bg-[#3a3a3a]"
-              : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
-          }`}
-        >
-          <div className="text-center">
-            <svg
-              className="mx-auto h-10 w-10 md:h-12 md:w-12 text-gray-400 mb-3 md:mb-4"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 48 48"
-              aria-hidden="true"
-            >
-              <path
-                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+                <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-3 md:gap-4">
+                    <button
+                        onClick={handleUpload}
+                        disabled={!file || uploading}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
+                    >
+                        {uploading ? "Uploading..." : "Upload & Continue"}
+                    </button>
 
-            {file ? (
-              <div className="mb-3 md:mb-4">
-                <p className="text-gray-900 dark:text-white font-medium text-sm md:text-base truncate px-4">{file.name}</p>
-                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
-                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                    <button
+                        onClick={handleSkip}
+                        disabled={uploading}
+                        className="flex-1 bg-gray-200 dark:bg-[#2f2f2f] hover:bg-gray-300 dark:hover:bg-[#3a3a3a] disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-900 dark:text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors text-sm md:text-base"
+                    >
+                        Skip for Now
+                    </button>
+                </div>
+
+                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm text-center mt-3 md:mt-4">
+                    Supported format: PDF (Max 10MB)
                 </p>
-              </div>
-            ) : (
-              <>
-                <p className="text-gray-900 dark:text-white mb-2 text-sm md:text-base px-4">
-                  Drag and drop your PDF file here, or
-                </p>
-                <label className="cursor-pointer text-blue-500 hover:text-blue-400 text-sm md:text-base">
-                  browse
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept="application/pdf"
-                    onChange={handleFileChange}
-                  />
-                </label>
-              </>
-            )}
-          </div>
+            </div>
         </div>
-
-        {error && (
-          <div className="mt-3 md:mt-4 bg-red-900/50 border border-red-500 rounded-lg p-2.5 md:p-3">
-            <p className="text-red-200 text-xs md:text-sm">{error}</p>
-          </div>
-        )}
-
-        <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-3 md:gap-4">
-          <button
-            onClick={handleUpload}
-            disabled={!file || uploading}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
-          >
-            {uploading ? "Uploading..." : "Upload & Continue"}
-          </button>
-
-          <button
-            onClick={handleSkip}
-            disabled={uploading}
-            className="flex-1 bg-gray-200 dark:bg-[#2f2f2f] hover:bg-gray-300 dark:hover:bg-[#3a3a3a] disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-900 dark:text-white font-medium py-2.5 md:py-3 px-4 md:px-6 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors text-sm md:text-base"
-          >
-            Skip for Now
-          </button>
-        </div>
-
-        <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm text-center mt-3 md:mt-4">
-          Supported format: PDF (Max 10MB)
-        </p>
-      </div>
-    </div>
-  );
+    );
 }

@@ -39,9 +39,9 @@ const MessageBubble = ({ message, isOutgoing, showTimestamp = true, onRetry }: M
         <div className={`flex flex-col mb-4 ${isOutgoing ? 'items-end' : 'items-start'}`}>
             {/* Message Bubble */}
             <div
-                className={`px-4 py-2 rounded-lg max-w-[70%] break-words ${isOutgoing
-                    ? 'bg-blue-500 text-white rounded-br-sm'
-                    : 'bg-gray-200 text-gray-900 rounded-bl-sm'
+                className={`px-4 py-2 rounded-lg max-w-[70%] break-words shadow-sm transition-all ${isOutgoing
+                    ? 'bg-[rgb(var(--button-primary))] text-white rounded-br-sm'
+                    : 'bg-[rgb(var(--hover-bg))] text-[rgb(var(--primary-text))] rounded-bl-sm border border-[rgb(var(--border-color))] shadow-sm'
                     }`}
             >
                 {message.content}

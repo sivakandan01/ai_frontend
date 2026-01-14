@@ -21,7 +21,10 @@ export const useSocket = (userId: string | null) => {
     }
 
     const baseUrl = (import.meta.env.VITE_BASE_URL || 'http://localhost:8001').replace(/\/$/, '');
-    const wsUrl = baseUrl.replace(/^http/, 'ws') + `/chats/ws/${userId}`;
+    
+    const wsProtocol = baseUrl.startsWith('https') ? 'wss' : 'ws';
+    const cleanBaseUrl = baseUrl.replace(/^https?:\/\//, '');
+    const wsUrl = `${wsProtocol}://${cleanBaseUrl}/chats/ws/${userId}`;
 
     const connect = () => {
       const socket = new WebSocket(wsUrl);

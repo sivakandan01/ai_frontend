@@ -20,15 +20,15 @@ const MessageComponent = () => {
     useSocket(currentUserId);
 
     return (
-        <div className="flex flex-col h-screen w-full bg-gray-50">
-            <div className="flex-none border-b border-gray-200 bg-white shadow-sm">
+        <div className="flex flex-col h-screen w-full bg-[rgb(var(--main-surface))] transition-colors duration-300">
+            <div className="flex-none border-b border-[rgb(var(--border-color))] bg-[rgb(var(--sidebar-bg))] shadow-sm">
                 <MessageHeader onUserSelect={setSelectedUser} />
             </div>
             <div className="flex flex-1 overflow-hidden">
-                <div className="w-80 flex-none border-r border-gray-200 bg-white overflow-y-auto">
+                <div className="w-80 flex-none border-r border-[rgb(var(--border-color))] bg-[rgb(var(--sidebar-bg))] overflow-y-auto scrollbar-hide">
                     <MessageSidebar onUserSelect={setSelectedUser} selectedUserId={selectedUser?.id || null} />
                 </div>
-                <div className="flex-1 bg-white">
+                <div className="flex-1 bg-[rgb(var(--main-surface))]">
                     <Messages selectedUser={selectedUser} />
                 </div>
             </div>

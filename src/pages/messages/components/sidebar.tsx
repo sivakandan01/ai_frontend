@@ -23,9 +23,9 @@ const MessageSidebar = ({ onUserSelect, selectedUserId }: MessageSidebarProps) =
     }
 
     return (
-        <div className="w-full h-full bg-white flex flex-col">
-            <div className="p-4 border-b border-gray-100">
-                <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+        <div className="w-full h-full bg-[rgb(var(--sidebar-bg))] flex flex-col transition-colors duration-300">
+            <div className="p-4 border-b border-[rgb(var(--border-color))]">
+                <h2 className="text-sm font-semibold text-[rgb(var(--secondary-text))] uppercase tracking-wider">
                     Recent Chats
                 </h2>
             </div>
@@ -39,25 +39,25 @@ const MessageSidebar = ({ onUserSelect, selectedUserId }: MessageSidebarProps) =
                             email: conv.email
                         })}
                         className={`px-4 py-3 flex items-center gap-3 cursor-pointer transition-colors ${selectedUserId === conv.id
-                            ? "bg-blue-50 border-r-2 border-blue-500"
-                            : "hover:bg-gray-50 border-r-2 border-transparent"
+                            ? "bg-[rgb(var(--hover-bg))] rounded-xl"
+                            : "hover:bg-[rgb(var(--hover-bg))] rounded-xl"
                             }`}
                     >
                         {/* Avatar */}
-                        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-[rgb(var(--button-primary))] flex items-center justify-center text-white font-semibold flex-shrink-0 shadow-sm">
                             {conv.user_name.charAt(0).toUpperCase()}
                         </div>
                         {/* Preview Info */}
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-baseline mb-0.5">
-                                <div className="font-medium text-gray-900 truncate">
+                                <div className="font-medium text-[rgb(var(--primary-text))] truncate">
                                     {conv.user_name}
                                 </div>
-                                <div className="text-[10px] text-gray-400">
+                                <div className="text-[10px] text-[rgb(var(--secondary-text))]">
                                     {new Date(conv.last_message_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </div>
                             </div>
-                            <div className="text-xs text-gray-500 truncate italic">
+                            <div className="text-xs text-[rgb(var(--secondary-text))] truncate">
                                 {conv.last_message}
                             </div>
                         </div>

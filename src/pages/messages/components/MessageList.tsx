@@ -81,9 +81,9 @@ const MessageList = ({ messages, isLoading, currentUserId, onRetry }: MessageLis
 
     if (isLoading) {
         return (
-            <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-6 bg-[rgb(var(--main-surface))]">
                 <div className="flex items-center justify-center h-full">
-                    <div className="text-gray-500">Loading messages...</div>
+                    <div className="text-[rgb(var(--secondary-text))]">Loading messages...</div>
                 </div>
             </div>
         );
@@ -91,8 +91,8 @@ const MessageList = ({ messages, isLoading, currentUserId, onRetry }: MessageLis
 
     if (messages.length === 0) {
         return (
-            <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
-                <div className="flex items-center justify-center h-full text-gray-400">
+            <div className="flex-1 overflow-y-auto p-6 bg-[rgb(var(--main-surface))]">
+                <div className="flex items-center justify-center h-full text-[rgb(var(--secondary-text))]">
                     <p>No messages yet. Start the conversation!</p>
                 </div>
             </div>
@@ -103,13 +103,13 @@ const MessageList = ({ messages, isLoading, currentUserId, onRetry }: MessageLis
         <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto p-6 bg-gray-50"
+            className="flex-1 overflow-y-auto p-6 bg-[rgb(var(--main-surface))] scrollbar-hide"
         >
             {messageGroups.map((group, groupIndex) => (
                 <div key={groupIndex}>
                     {/* Date Header */}
                     <div className="flex justify-center my-4">
-                        <span className="px-3 py-1 text-xs text-gray-500 bg-gray-200 rounded-full">
+                        <span className="px-3 py-1 text-xs text-[rgb(var(--secondary-text))] bg-[rgb(var(--hover-bg))] border border-[rgb(var(--border-color))] rounded-full">
                             {group.date}
                         </span>
                     </div>
